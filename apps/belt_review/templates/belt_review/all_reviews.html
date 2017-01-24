@@ -1,0 +1,33 @@
+{% extends "belt_review/base.html" %}
+{% block content %}
+{% load static %}
+
+	<div class="container">
+	 	<div class="row">
+			<div class="small-12 columns">
+			</div>
+		</div>
+		<div class="row">
+			<div class="small-12 medium-8 columns">
+				<h2>Latest Three Book Reviews</h2>
+				{%for review in reviews%}
+					<h3>{{review.review_for_book.title}}</h3>
+					<p><a href="/users/{{review.review_by.id}}">{{review.review_by.first_name}} says</a>
+					{{review.review_text}} </p>
+					
+						<div id="{{review.review_rating}}"><img src="/static/belt_review/{{review.review_rating}}.jpg" alt="My image"/></div>
+				{%endfor%}
+			</div>
+			<div class="small-12 medium-4 columns other">
+				<h2>Other books with reviews</h2>
+					<ul>
+						{%for book in booksWithReviews%}
+						<li>	<a href="/books/{{book.review_for_book.id}}">{{book.review_for_book.title}}</a></li>
+						{%endfor%}
+					</ul>
+			</div>
+		</div>
+	</div>
+	{% endblock %}
+</body>
+</html>

@@ -1,0 +1,28 @@
+{% extends "belt_review/base.html" %}
+{% block content %}
+	<div class="container">
+	 	<div class="row">
+			<div class="small-12 columns">
+			</div>
+		</div>
+		<div class="row">
+			<div class="small-12 medium-8 columns">
+				<h2>User Alias: {{first_name}}</h2>
+				<h2>Name: {{user.first_name}} {{user.last_name}}</h2>
+				<h2>Email: {{user.email}}</h2>
+				<h2>Total Reviews:{{count}}</h2>
+			</div>
+			<div class="small-12 medium-4 columns other">
+				<h2>Posted Reviews On These Books</h2>
+					<ul>
+					 {%for set in booksWithReviews%}
+							
+						<li>	<a href="/books/{{set.review_for_book.id}}">{{set.review_for_book.title}}</a></li>
+					{%endfor%}
+					</ul>
+			</div>
+		</div>
+	</div>
+	{% endblock %}
+</body>
+</html>

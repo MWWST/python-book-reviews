@@ -1,0 +1,42 @@
+{% extends "belt_review/base.html" %}
+{% block content %}
+	<div class="container">
+	 	<div class="row">
+			<div class="small-12 columns">
+			<h1>{{book.title}}<h1>
+
+			<h4>{{author.author_name}}<h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="small-12 medium-8 columns">
+				<h2>Reviews:</h2>
+				{%for review in reviews%}
+					<p><a href="/users/{{review.review_by.id}}">{{review.review_by.first_name}} says</a>
+					{{review.review_text}} </p><div id="{{review.review_rating}}"><img src="/static/belt_review/{{review.review_rating}}.jpg" alt="My image"/></div>
+					{% if request.session.user_id == review.review_by.id %}
+						<a class="float-right" href="/reviews/destroy/{{review.id}}">Delete</a>
+					{%endif%}
+				{%endfor%}
+
+			</div>
+			<div class="small-12 medium-4 columns">
+				<h2>Add A Review</h2>
+				<form method="POST" action="/review/create/{{book.id}}">
+				{%csrf_token%}
+					<textarea name="review"></textarea>
+					<select name="rating">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					</select>
+					<button class="button large primary">Add Review</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	{% endblock %}
+</body>
+</html>
